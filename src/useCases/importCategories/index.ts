@@ -5,7 +5,7 @@ import { ImportCategoryController } from './importCategoryController';
 // eslint-disable-next-line import/no-unresolved
 import { ImportCategoryUseCase } from './importCategoryUseCase';
 
-const categoriesRepository = CategoriesRepository.getInstance();
+const categoriesRepository = new CategoriesRepository();
 const importCategoryUseCase = new ImportCategoryUseCase(categoriesRepository);
 const importCategoryController = new ImportCategoryController(
   importCategoryUseCase,

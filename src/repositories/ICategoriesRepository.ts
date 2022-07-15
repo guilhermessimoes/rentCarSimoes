@@ -1,12 +1,9 @@
-import { Category } from '../entities/Category';
+import { Category } from '@prisma/client';
 
-export interface ICreateCategoryDTO {
-  name: string;
-  description: string;
-}
+import { ICreateCategoryDataDTO } from '../dtos/ICreateCategoryDataDTO';
 
 export interface ICategoriesRepository {
-  findByName(name: string): Promise<Category>;
+  findByName(name: string): Promise<Category | null>;
   list(): Promise<Category[]>;
-  create({ name, description }: ICreateCategoryDTO): Promise<void>;
+  create({ name, description }: ICreateCategoryDataDTO): Promise<void>;
 }

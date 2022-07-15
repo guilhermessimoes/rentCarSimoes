@@ -1,12 +1,19 @@
+import { Category } from '@prisma/client';
+
 import { prisma } from '../../database/prismaClient';
 import { ICreateCategoryDataDTO } from '../../dtos/ICreateCategoryDataDTO';
-import { Category } from '../../entities/Category';
 // eslint-disable-next-line prettier/prettier
 import { ICategoriesRepository } from '../ICategoriesRepository';
 
 class CategoriesRepository implements ICategoriesRepository {
+  // private repository: Repository<Category>;
+
+  // constructor() {
+  //   this.repository = getRepository(Category);
+  // }
+
   async create({ name, description }: ICreateCategoryDataDTO): Promise<void> {
-    await prisma.categories.create({
+    await prisma.category.create({
       data: {
         name,
         description,
@@ -15,13 +22,13 @@ class CategoriesRepository implements ICategoriesRepository {
   }
 
   async list(): Promise<Category[]> {
-    const categories = await prisma.categories.find();
+    const listCategories = await prisma.category.findMany();
 
-    return categories;
+    return listCategories;
   }
 
-  async findByName(name: string): Promise<Category> {
-    const user = await prisma.user.findUnique({
+  async findByName(name: string): Promise<Category | null> {
+    const user = await prisma.category.findFirst({
       where: {
         name,
       },
