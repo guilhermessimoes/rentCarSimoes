@@ -1,36 +1,28 @@
-import { Specification } from '../../entities/Specification';
+import { Specification } from '@prisma/client';
+
+import { prisma } from '../../database/prismaClient';
+import { ICreateSpecificationDataDTO } from '../../dtos/ICreateSpecificationDataDTO';
 // eslint-disable-next-line prettier/prettier
-import { ISpecificationRepository, ISpecificationRepositoryDTO } from '../ISpecificationRepository';
+import { ISpecificationRepository } from '../ISpecificationRepository';
 
 export class SpecificationRepository implements ISpecificationRepository {
-  private specifications: Specification[];
-
-  // eslint-disable-next-line no-use-before-define
-  private static INSTANCE: SpecificationRepository;
-
-  private constructor() {
-    this.specifications = [];
+  async create({
+    name,
+    description,
+  }: ICreateSpecificationDataDTO): Promise<void> {
+    await prisma.specification.create({
+      data: {
+        name,
+        description,
+      },
+    });
   }
-
-  public static getInstance(): SpecificationRepository {
-    if (!SpecificationRepository.INSTANCE) {
-      SpecificationRepository.INSTANCE = new SpecificationRepository();
-    }
-
-    return SpecificationRepository.INSTANCE;
-  }
-
-  create({ name, description }: ISpecificationRepositoryDTO): void {
-    const specification = new Specification();
-
-    Object.assign(specification, { name, description, created_at: new Date() });
-
-    this.specifications.push(specification);
-  }
-  findByName(name: string): Specification {
-    const specification = this.specifications.find(
-      specification => specification.name === name,
-    );
+  async findByName(name: string): Promise<Specification | null> {
+    const specification = await prisma.specification.findFirst({
+      where: {
+        name,
+      },
+    });
     return specification;
   }
 }

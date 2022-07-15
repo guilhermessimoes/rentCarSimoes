@@ -6,12 +6,6 @@ import { ICreateCategoryDataDTO } from '../../dtos/ICreateCategoryDataDTO';
 import { ICategoriesRepository } from '../ICategoriesRepository';
 
 class CategoriesRepository implements ICategoriesRepository {
-  // private repository: Repository<Category>;
-
-  // constructor() {
-  //   this.repository = getRepository(Category);
-  // }
-
   async create({ name, description }: ICreateCategoryDataDTO): Promise<void> {
     await prisma.category.create({
       data: {
