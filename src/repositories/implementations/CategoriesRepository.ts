@@ -1,45 +1,33 @@
-import { Category } from '../../model/Category';
+import { prisma } from '../../database/prismaClient';
+import { ICreateCategoryDataDTO } from '../../dtos/ICreateCategoryDataDTO';
+import { Category } from '../../entities/Category';
 // eslint-disable-next-line prettier/prettier
-import { ICategoriesRepository, ICreateCategoryDTO } from '../ICategoriesRepository';
+import { ICategoriesRepository } from '../ICategoriesRepository';
 
 class CategoriesRepository implements ICategoriesRepository {
-  private categories: Category[] = [];
-
-  // eslint-disable-next-line no-use-before-define
-  private static INSTANCE: CategoriesRepository;
-
-  private constructor() {
-    this.categories = [];
+  async create({ name, description }: ICreateCategoryDataDTO): Promise<void> {
+    await prisma.categories.create({
+      data: {
+        name,
+        description,
+      },
+    });
   }
 
-  public static getInstance(): CategoriesRepository {
-    if (!CategoriesRepository.INSTANCE) {
-      CategoriesRepository.INSTANCE = new CategoriesRepository();
-    }
+  async list(): Promise<Category[]> {
+    const categories = await prisma.categories.find();
 
-    return CategoriesRepository.INSTANCE;
+    return categories;
   }
 
-  create({ name, description }: ICreateCategoryDTO): void {
-    const category = new Category();
-
-    Object.assign(category, {
-      name,
-      description,
-      createdAt: new Date(),
+  async findByName(name: string): Promise<Category> {
+    const user = await prisma.user.findUnique({
+      where: {
+        name,
+      },
     });
 
-    this.categories.push(category);
-  }
-
-  list(): Category[] {
-    return this.categories;
-  }
-
-  findByName(name: string): Category | undefined {
-    const category = this.categories.find(category => category.name === name);
-
-    return category;
+    return user;
   }
 }
 

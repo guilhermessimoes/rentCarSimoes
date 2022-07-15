@@ -1,19 +1,18 @@
-import { v4 as uuidV4 } from 'uuid';
-
-import { prisma } from '../database/prismaClient';
-
 export class Category {
-  id?: string;
+  public id?: string;
+  public createdAt: Date;
+  public description: string;
+  public name: string;
 
-  name: string;
-
-  description: string;
-
-  created_at: Date;
-
-  constructor() {
-    if (!this.id) {
-      this.id = uuidV4();
-    }
+  constructor(category: {
+    id?: string;
+    createdAt: Date;
+    description: string;
+    name: string;
+  }) {
+    this.id = category.id;
+    this.createdAt = category.createdAt;
+    this.description = category.description;
+    this.name = category.name;
   }
 }
