@@ -1,0 +1,25 @@
+version: "latest"
+
+services:
+  database_rentcarsimoes:
+    image: postgres
+    container_name: database_rentcarsimoes
+    restart: always
+    ports: 
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=docker
+      - POSTGRES_PASSWORD=docker.123
+      - POSTGRES_DB=rentcarsimoes
+    volumes:
+      - pgdata:/data/postgres
+  app:
+    build: .
+    container_name: rentcarsimoes
+    ports:
+      - 3334:3334
+    volumes:
+      - .:/usr/app
+volumes:
+  pgdata:
+    driver: local
