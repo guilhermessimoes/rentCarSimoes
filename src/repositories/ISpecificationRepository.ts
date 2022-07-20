@@ -1,5 +1,5 @@
+import { Specification } from '@prisma/client';
 import { ICreateSpecificationDataDTO } from '../dtos/ICreateSpecificationDataDTO';
-import { Specification } from '../entities/Specification';
 
 export interface ISpecificationRepository {
   create({ name, description }: ICreateSpecificationDataDTO): void;

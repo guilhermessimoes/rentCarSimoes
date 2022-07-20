@@ -9,7 +9,7 @@ export class ImportCategoryController {
     const importCategoryUseCase = container.resolve(ImportCategoryUseCase)
 
     importCategoryUseCase.execute(file);
-    return response.send();
+    return response.status(201).send();
   }
 }
  
