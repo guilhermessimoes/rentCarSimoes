@@ -8,7 +8,8 @@ export interface IUsersRepository {
     password,
     email,
     driver_license,
+    avatar,
   }: ICreateUserDataDTO): Promise<void>;
-  findByUserEmail(email: string): Promise<User | null>;
-  findById(id: string): Promise<User | null>;
+  findByUserEmail(email: string): Promise<User>;
+  findByID(id: string): Promise<User>;
 }

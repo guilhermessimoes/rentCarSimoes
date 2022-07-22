@@ -10,6 +10,8 @@ export class UsersRepository implements IUsersRepository {
     password,
     email,
     driver_license,
+    id,
+    avatar,
   }: ICreateUserDataDTO): Promise<void> {
     await prisma.user.create({
       data: {
@@ -17,6 +19,8 @@ export class UsersRepository implements IUsersRepository {
         password,
         email,
         driver_license,
+        avatar,
+        id,
       },
     });
   }
@@ -29,9 +33,12 @@ export class UsersRepository implements IUsersRepository {
     return user;
   }
 
-  async findById(id: string): Promise<User> {
-    const user = await prisma.user.findUnique(id);
-
+  async findByID(id: string): Promise<User | null> {
+    const user = await prisma.user.findUnique({
+      where: {
+        id,
+      },
+    });
     return user;
   }
 }

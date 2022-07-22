@@ -28,12 +28,16 @@ export async function ensureAuthenticated(
     ) as IPayload;
 
     const usersRepository = new UsersRepository();
-    const user = usersRepository.findById(user_id);
+
+    const user = usersRepository.findByID(user_id);
 
     if (!user) {
       throw new AppError('User does not exists!', 401);
     }
     next();
+    request.user = {
+      id: user_id,
+    };
   } catch (error) {
     throw new AppError('Invalid token', 401);
   }
