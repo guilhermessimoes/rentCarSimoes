@@ -12,4 +12,5 @@ export interface IUsersRepository {
   }: ICreateUserDataDTO): Promise<void>;
   findByUserEmail(email: string): Promise<User>;
   findByID(id: string): Promise<User>;
+  update(avatar): Promise<void>;
 }

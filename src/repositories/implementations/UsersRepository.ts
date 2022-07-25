@@ -41,4 +41,13 @@ export class UsersRepository implements IUsersRepository {
     });
     return user;
   }
+
+  async update({ id, avatar }: ICreateUserDataDTO): Promise<void> {
+    await prisma.user.update({
+      where: { id },
+      data: {
+        avatar,
+      },
+    });
+  }
 }
