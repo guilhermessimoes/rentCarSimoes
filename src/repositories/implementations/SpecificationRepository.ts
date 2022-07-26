@@ -1,7 +1,7 @@
 import { Specification } from '@prisma/client';
 
-import { prisma } from '../../database/prismaClient';
 import { ICreateSpecificationDataDTO } from '../../dtos/ICreateSpecificationDataDTO';
+import { prisma } from '../../shared/infra/database/prismaClient';
 // eslint-disable-next-line prettier/prettier
 import { ISpecificationRepository } from '../ISpecificationRepository';
 

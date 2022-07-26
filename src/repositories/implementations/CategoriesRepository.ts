@@ -1,7 +1,7 @@
 import { Category } from '@prisma/client';
 
-import { prisma } from '../../database/prismaClient';
 import { ICreateCategoryDataDTO } from '../../dtos/ICreateCategoryDataDTO';
+import { prisma } from '../../shared/infra/database/prismaClient';
 // eslint-disable-next-line prettier/prettier
 import { ICategoriesRepository } from '../ICategoriesRepository';
 
