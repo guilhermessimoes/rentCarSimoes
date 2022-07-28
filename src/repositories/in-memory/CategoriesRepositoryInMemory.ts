@@ -1,6 +1,5 @@
-import { Category } from '@prisma/client';
-
 import { ICreateCategoryDataDTO } from '../../dtos/ICreateCategoryDataDTO';
+import { Category } from '../../entities/Category';
 import { ICategoriesRepository } from '../ICategoriesRepository';
 
 export class CategoriesRepositoryInMemory implements ICategoriesRepository {

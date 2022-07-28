@@ -1,6 +1,5 @@
-import { User } from '@prisma/client';
-
 import { ICreateUserDataDTO } from '../../dtos/ICreateUserDataDTO';
+import { User } from '../../entities/User';
 import { IUsersRepository } from '../IUsersRepository';
 
 export class UserRepositoryInMemory implements IUsersRepository {
