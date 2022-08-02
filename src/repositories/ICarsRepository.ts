@@ -11,6 +11,7 @@ export interface ICarsRepository {
     fine_amount,
     brand,
     category_id,
+    specificationsCar,
   }: ICreateCarDataDTO): Promise<Car>;
 
   findByLicensePlate(license_plate: string): Promise<Car>;
@@ -20,4 +21,6 @@ export interface ICarsRepository {
     category_id?: string,
     brand?: string,
   ): Promise<Car[]>;
+
+  findById(id: string): Promise<Car>;
 }

@@ -9,18 +9,30 @@ export class SpecificationRepository implements ISpecificationRepository {
   async create({
     name,
     description,
-  }: ICreateSpecificationDataDTO): Promise<void> {
-    await prisma.specification.create({
+  }: ICreateSpecificationDataDTO): Promise<Specification> {
+    const specification = await prisma.specification.create({
       data: {
         name,
         description,
       },
     });
+
+    return specification;
   }
   async findByName(name: string): Promise<Specification | null> {
     const specification = await prisma.specification.findFirst({
       where: {
         name,
+      },
+    });
+    return specification;
+  }
+
+  async findByIds(ids: string[]): Promise<Specification[]> {
+    const specification = await prisma.specification.findFirst({
+      where: {
+        specification_id,
+        car_id,
       },
     });
     return specification;

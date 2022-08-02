@@ -1,3 +1,5 @@
+import { SpecificationCar } from '@prisma/client';
+
 export interface ICreateCarDataDTO {
   name: string;
   description: string;
@@ -6,4 +8,6 @@ export interface ICreateCarDataDTO {
   fine_amount: number;
   brand: string;
   category_id: string;
+  specificationsCar?: SpecificationCar[];
+  id?: string;
 }

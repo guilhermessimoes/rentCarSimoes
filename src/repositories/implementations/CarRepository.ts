@@ -24,6 +24,8 @@ export class CarRepository implements ICarsRepository {
     fine_amount,
     brand,
     category_id,
+    id,
+    specificationsCar,
   }: ICreateCarDataDTO): Promise<Car> {
     const car = await prisma.car.create({
       data: {
@@ -34,6 +36,8 @@ export class CarRepository implements ICarsRepository {
         fine_amount,
         brand,
         category_id,
+        id,
+        SpecificationCar: { create: { specification: { connect: { id } } } },
       },
     });
 
@@ -84,5 +88,14 @@ export class CarRepository implements ICarsRepository {
       return listCategory;
     }
     return listAvailable;
+  }
+
+  async findById(id: string): Promise<Car> {
+    const car = await prisma.car.findFirst({
+      where: {
+        id,
+      },
+    });
+    return car;
   }
 }
